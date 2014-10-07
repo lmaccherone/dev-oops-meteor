@@ -1,0 +1,188 @@
+head
+  meta(charset="utf-8")
+  title DevOOPS
+  meta(name="description", content="description")
+  meta(name="author", content="DevOOPS")
+  meta(name="viewport", content="width=device-width, initial-scale=1")
+  // <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet">
+  // <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+  // <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  // <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+  // <link href="plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+  // <link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+  // <link href="plugins/xcharts/xcharts.min.css" rel="stylesheet">
+  // <link href="plugins/select2/select2.css" rel="stylesheet">
+  // <link href="plugins/justified-gallery/justifiedGallery.css" rel="stylesheet">
+  dy
+
+template(name="mainLayout")
+  body
+    +header
+    +container
+
+// Start Header
+template(name="header")
+
+  //#screensaver
+  //  canvas#canvas
+  //  i#screen_unlock.fa.fa-lock
+  //
+  //
+  //#modalbox
+  //  .devoops-modal
+  //    .devoops-modal-header
+  //      .modal-header-name
+  //        span Basic table
+  //      .box-icons
+  //        a.close-link
+  //          i.fa.fa-times
+  //    .devoops-modal-inner
+  //    .devoops-modal-bottom
+
+  header.navbar
+    .container-fluid.expanded-panel
+      .row
+        #logo.col-xs-12.col-sm-2
+          a(href="index.html") DevOOPS
+        #top-panel.col-xs-12.col-sm-10
+          .row
+            .col-xs-8.col-sm-4
+              +showSidebar
+              #search
+                input(type="text", placeholder="search")
+                i.fa.fa-search
+            .col-xs-4.col-sm-8.top-panel-right
+              ul.nav.navbar-nav.pull-right.panel-menu
+                li.hidden-xs
+                  a.modal-link(href="index.html")
+                    i.fa.fa-bell
+                    span.badge 7
+                li.hidden-xs
+                  a.ajax-link(href="ajax/calendar.html")
+                    i.fa.fa-calendar
+                    span.badge 7
+                li.hidden-xs
+                  a.ajax-link(href="ajax/page_messages.html")
+                    i.fa.fa-envelope
+                    span.badge 7
+                li.dropdown
+                  a.dropdown-toggle.account(href="#", data-toggle="dropdown")
+                    .avatar
+                      img.img-rounded(src="img/avatar.jpg", alt="avatar")
+                    i.fa.fa-angle-down.pull-right
+                    .user-mini.pull-right
+                      span.welcome Welcome,
+                      span Jane Devoops
+                  ul.dropdown-menu
+                    li
+                      a(href="#")
+                        i.fa.fa-user
+                        span Profile
+                    li
+                      a.ajax-link(href="ajax/page_messages.html")
+                        i.fa.fa-envelope
+                        span Messages
+                    li
+                      a.ajax-link(href="ajax/gallery_simple.html")
+                        i.fa.fa-picture-o
+                        span Albums
+                    li
+                      a.ajax-link(href="ajax/calendar.html")
+                        i.fa.fa-tasks
+                        span Tasks
+                    li
+                      a(href="#")
+                        i.fa.fa-cog
+                        span Settings
+                    li
+                      a(href="#")
+                        i.fa.fa-power-off
+                        span Logout
+
+template(name="showSidebar")
+  a.show-sidebar(href="#")
+    i.fa.fa-bars
+
+// End Header
+
+// Start Container
+template(name="container")
+  #main.container-fluid(class=showSidebarClass)
+    .row
+      +sidebarLeft
+      +mainContent
+
+template(name="sidebarLeft")
+  #sidebar-left.col-xs-2.col-sm-2
+    ul.nav.main-menu
+      li
+        a(href="/dashboard")
+          i.fa.fa-dashboard
+          span.hidden-xs Dashboard
+      li
+        a(href="/charts")
+          i.fa.fa-bar-chart-o
+          span.hidden-xs Charts
+      li
+        a(href="/tables")
+          i.fa.fa-table
+          span.hidden-xs Tables
+      li
+        a(href="/forms")
+          i.fa.fa-pencil-square-o
+          span.hidden-xs Forms
+      li
+        a(href="/ui-elements")
+          i.fa.fa-desktop
+          span.hidden-xs UI Elements
+      li
+        a(href="/pages")
+          i.fa.fa-list
+          span.hidden-xs Pages
+      li
+        a(href="/maps")
+          i.fa.fa-map-marker
+          span.hidden-xs Maps
+      li
+        a(href="/gallery")
+          i.fa.fa-picture-o
+          span.hidden-xs Gallery
+      li
+        a(href="/typography")
+          i.fa.fa-font
+          span.hidden-xs Typography
+      li
+        a(href="/calendar")
+          i.fa.fa-calendar
+          span.hidden-xs Calendar
+      li
+        a(href="/multi-level-menu")
+          i.fa.fa-picture-o
+          span.hidden-xs Multilevel menu
+
+
+// Start Content
+template(name="mainContent")
+  #content.col-xs-12.col-sm-10
+    //.preloader
+    //  img.devoops-getdata(src="img/devoops_getdata.gif", alt="preloader")
+    +yield
+
+
+// End Content
+
+// End Container
+
+
+
+// &lt;!&ndash; jQuery (necessary for Bootstrap's JavaScript plugins) &ndash;&gt;
+// &lt;!&ndash;<script src="http://code.jquery.com/jquery.js"></script>&ndash;&gt;
+// <script src="plugins/jquery/jquery.min.js"></script>
+// <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+// &lt;!&ndash; Include all compiled plugins (below), or include individual files as needed &ndash;&gt;
+// <script src="plugins/bootstrap/bootstrap.min.js"></script>
+// <script src="plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
+// <script src="plugins/tinymce/tinymce.min.js"></script>
+// <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
+// &lt;!&ndash; All functions for this theme + document.ready processing &ndash;&gt;
+// <script src="js/devoops.js"></script>
