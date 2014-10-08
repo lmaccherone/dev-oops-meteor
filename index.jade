@@ -1,6 +1,6 @@
 head
   meta(charset="utf-8")
-  title DevOOPS
+  title DevOOPS Meteor
   meta(name="description", content="description")
   meta(name="author", content="DevOOPS")
   meta(name="viewport", content="width=device-width, initial-scale=1")
@@ -13,14 +13,12 @@ head
   // <link href="plugins/xcharts/xcharts.min.css" rel="stylesheet">
   // <link href="plugins/select2/select2.css" rel="stylesheet">
   // <link href="plugins/justified-gallery/justifiedGallery.css" rel="stylesheet">
-  dy
 
 template(name="mainLayout")
   body
     +header
     +container
 
-// Start Header
 template(name="header")
 
   //#screensaver
@@ -47,131 +45,89 @@ template(name="header")
         #top-panel.col-xs-12.col-sm-10
           .row
             .col-xs-8.col-sm-4
-              +showSidebar
-              #search
-                input(type="text", placeholder="search")
-                i.fa.fa-search
+              +sidebarToggle
+              +search
             .col-xs-4.col-sm-8.top-panel-right
-              ul.nav.navbar-nav.pull-right.panel-menu
-                li.hidden-xs
-                  a.modal-link(href="index.html")
-                    i.fa.fa-bell
-                    span.badge 7
-                li.hidden-xs
-                  a.ajax-link(href="ajax/calendar.html")
-                    i.fa.fa-calendar
-                    span.badge 7
-                li.hidden-xs
-                  a.ajax-link(href="ajax/page_messages.html")
-                    i.fa.fa-envelope
-                    span.badge 7
-                li.dropdown
-                  a.dropdown-toggle.account(href="#", data-toggle="dropdown")
-                    .avatar
-                      img.img-rounded(src="img/avatar.jpg", alt="avatar")
-                    i.fa.fa-angle-down.pull-right
-                    .user-mini.pull-right
-                      span.welcome Welcome,
-                      span Jane Devoops
-                  ul.dropdown-menu
-                    li
-                      a(href="#")
-                        i.fa.fa-user
-                        span Profile
-                    li
-                      a.ajax-link(href="ajax/page_messages.html")
-                        i.fa.fa-envelope
-                        span Messages
-                    li
-                      a.ajax-link(href="ajax/gallery_simple.html")
-                        i.fa.fa-picture-o
-                        span Albums
-                    li
-                      a.ajax-link(href="ajax/calendar.html")
-                        i.fa.fa-tasks
-                        span Tasks
-                    li
-                      a(href="#")
-                        i.fa.fa-cog
-                        span Settings
-                    li
-                      a(href="#")
-                        i.fa.fa-power-off
-                        span Logout
+              +topRightNavbar
 
-template(name="showSidebar")
+template(name="sidebarToggle")
   a.show-sidebar(href="#")
     i.fa.fa-bars
 
-// End Header
+template(name="search")
+  #search
+    input(type="text", placeholder="search")
+    i.fa.fa-search
 
-// Start Container
+template(name="topRightNavbar")
+  ul.nav.navbar-nav.pull-right.panel-menu
+    +notificationElement(href="/notifications" icon="fa-bell" quantity=7)
+    +notificationElement(href="/calendar" icon="fa-calendar" quantity=3)
+    +notificationElement(href="/messages" icon="fa-envelope" quantity=78)
+    li.dropdown
+      a.dropdown-toggle.account(href="#", data-toggle="dropdown")
+        .avatar
+          img.img-rounded(src="img/avatar.jpg", alt="avatar")
+        i.fa.fa-angle-down.pull-right
+        .user-mini.pull-right
+          span.welcome Welcome,
+          span Jane Devoops
+      ul.dropdown-menu
+        +userDropdownElement(href="/profile" icon="fa-user" label="Profile")
+        +userDropdownElement(href="/messages" icon="fa-envelope" label="Messages")
+        +userDropdownElement(href="/albums" icon="fa-picture-o" label="Albums")
+        +userDropdownElement(href="/tasks" icon="fa-tasks" label="Tasks")
+        +userDropdownElement(href="/settings" icon="fa-cog" label="Settings")
+        +userDropdownElement(href="/logout" icon="fa-power-off" label="Logout")
+
+template(name="notificationElement")
+  li.hidden-xs
+    a(href=href)
+      i.fa(class=icon)
+      span.badge #{quantity}
+
+template(name="userDropdownElement")
+  li
+    a(href=href)
+      i.fa(class=icon)
+      span #{label}
+
 template(name="container")
   #main.container-fluid(class=showSidebarClass)
     .row
-      +sidebarLeft
+      +sidebar
       +mainContent
 
-template(name="sidebarLeft")
+template(name="sidebar")
   #sidebar-left.col-xs-2.col-sm-2
     ul.nav.main-menu
-      li
-        a(href="/dashboard")
-          i.fa.fa-dashboard
-          span.hidden-xs Dashboard
-      li
-        a(href="/charts")
-          i.fa.fa-bar-chart-o
-          span.hidden-xs Charts
-      li
-        a(href="/tables")
-          i.fa.fa-table
-          span.hidden-xs Tables
-      li
-        a(href="/forms")
-          i.fa.fa-pencil-square-o
-          span.hidden-xs Forms
-      li
-        a(href="/ui-elements")
-          i.fa.fa-desktop
-          span.hidden-xs UI Elements
-      li
-        a(href="/pages")
-          i.fa.fa-list
-          span.hidden-xs Pages
-      li
-        a(href="/maps")
-          i.fa.fa-map-marker
-          span.hidden-xs Maps
-      li
-        a(href="/gallery")
-          i.fa.fa-picture-o
-          span.hidden-xs Gallery
-      li
-        a(href="/typography")
-          i.fa.fa-font
-          span.hidden-xs Typography
-      li
-        a(href="/calendar")
-          i.fa.fa-calendar
-          span.hidden-xs Calendar
-      li
-        a(href="/multi-level-menu")
-          i.fa.fa-picture-o
-          span.hidden-xs Multilevel menu
+      // name is the iron-router route name
+      // unless provided, label will default to name with first letter capitalized
+      // unless provided, href will default to name proceeded by '/'
+      +navElement(icon="fa-dashboard" name="dashboard")
+      +navElement(icon="fa-bar-chart-o" name="charts")
+      +navElement(icon="fa-table" name="tables")
+      +navElement(icon="fa-pencil-square-o" name="forms")
+      // Example below: explicit label, but page still defaulted to same as name
+      +navElement(icon="fa-desktop" name="ui-elements" label="UI Elements")
+      +navElement(icon="fa-list" name="messages")
+      +navElement(icon="fa-map-marker" name="maps")
+      +navElement(icon="fa-picture-o" name="gallery")
+      +navElement(icon="fa-font" name="typography")
+      // Example below: explicit href and label
+      +navElement(icon="fa-calendar" name="calendar" label="Calendar [incomplete]" href="/404")
 
+template(name="navElement")
+  li
+    a(href=href class=isActive)
+      i.fa(class=icon)
+      span.hidden-xs #{label}
 
-// Start Content
 template(name="mainContent")
   #content.col-xs-12.col-sm-10
-    //.preloader
-    //  img.devoops-getdata(src="img/devoops_getdata.gif", alt="preloader")
+    // Add breadcrumbs here rendered from the active route with `Router.routes[Session.get('active')]`
     +yield
 
-
-// End Content
-
-// End Container
 
 
 
