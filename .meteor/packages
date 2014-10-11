@@ -10,6 +10,6 @@ mizzao:bootstrap-3
 linto:fontawesome
 coffeescript
 mquandalle:jade
-stylus
 iron:router
+less
 
